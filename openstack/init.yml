@@ -1,0 +1,199 @@
+parameters:
+  _param:
+    openstack_region: RegionOne
+    admin_email: root@localhost
+    openstack_version: ocata
+
+    galera_server_cluster_name: openstack_cluster
+    galera_server_maintenance_password: FySnvkEvrelraUXf
+    galera_server_admin_password: jZXjkcGP0gqi9ZP2
+    rabbitmq_secret_key: zycJwJGXlKdEWGZg
+    rabbitmq_admin_password: AaEzyIqKI3cYczUp
+    rabbitmq_openstack_password: q78vNznwlMiAY4we
+    glance_version: ${_param:openstack_version}
+    glance_service_host: ${_param:openstack_control_address}
+    keystone_version: ${_param:openstack_version}
+    keystone_service_host: ${_param:openstack_control_address}
+    heat_version: ${_param:openstack_version}
+    heat_service_host: ${_param:openstack_control_address}
+    heat_domain_admin_password: voW6uF89iA85OWep
+    cinder_version: ${_param:openstack_version}
+    cinder_service_host: ${_param:openstack_control_address}
+    ceilometer_version: ${_param:openstack_version}
+    ceilometer_service_host: ${_param:openstack_control_address}
+    ceilometer_influxdb_password: bQy6fHmjUsugPdeJ
+    nova_version: ${_param:openstack_version}
+    nova_service_host: ${_param:openstack_control_address}
+    neutron_version: ${_param:openstack_version}
+    neutron_service_host: ${_param:openstack_control_address}
+    glusterfs_service_host: ${_param:infra_kvm_address}
+    aodh_version: ${_param:openstack_version}
+    aodh_service_host: ${_param:openstack_control_address}
+
+    mysql_admin_user: root
+    mysql_aodh_password: 9PNDeHDtwLdiZAjE
+    mysql_admin_password: ${_param:galera_server_admin_password}
+    mysql_cinder_password: kTFRln876eRLorrW
+    mysql_ceilometer_password: jtKhYC5d0fa3if34
+    mysql_glance_password: xhNo6k6z6oj7Scql
+    mysql_heat_password: yK5sT8lBr3BNc28r
+    mysql_keystone_password: EhXtcg2QB0pICFJE
+    mysql_neutron_password: 7SCVwjnNAM72emlp
+    mysql_nova_password: SO1s3c7t4KXc6a4K
+    keystone_service_token: JWh8NgSoHoVdGtoF
+    keystone_admin_password: 3beujRpztQeICNyz
+    keystone_ceilometer_password: fj7g1R9umYRyuKKm
+    keystone_cinder_password: jvi0ghYwkqR6Rcu8
+    keystone_glance_password: u2g9wtHSEEmpnovt
+    keystone_heat_password: z7AX2zAxjn2jzkce
+    keystone_keystone_password: 2Sssc73QgC4S3uYu
+    keystone_neutron_password: GNqpBrB8cHuYn1G9
+    keystone_nova_password: McsojTwHV0loqU8X
+    keystone_aodh_password: SlSjKOe5oFR0P6hu
+    ceilometer_secret_key: 3nXbuJrEapbiv8B0
+    horizon_version: ${_param:openstack_version}
+    horizon_secret_key: wOdCfj5ty41qMPJDFHSZQbfSnnVxzeUi5JHBXQzUXny1cene4MmSWEUDoT87HqVZ
+    horizon_identity_host: ${_param:openstack_control_address}
+    horizon_identity_encryption: none
+    horizon_identity_version: 2
+    mongodb_server_replica_set: ceilometer
+    mongodb_ceilometer_password: JQymAZ8Dy1XiH9EE
+    mongodb_admin_password: hUNMAqIOWFdohAEj
+    mongodb_shared_key: P2GtOZaViSHrWew30pcemwCnZd92Z1iXigpGeR5g94RZln32ZVnfou0B8hKsqBIa
+    metadata_password: BttoJBFxsSfJI0AN
+    salt_pki_proxy_alt_names: IP:${_param:cluster_public_host},DNS:${_param:cluster_public_host},IP:${_param:openstack_proxy_address},DNS:horizon.${_param:cluster_domain}
+    openstack_notification_topics: notifications
+
+    # openstack service addresses
+    openstack_proxy_address: 172.17.36.80
+    openstack_proxy_node01_address: 172.17.36.81
+    openstack_proxy_node02_address: 172.17.36.82
+    openstack_proxy_public_address: 172.17.33.80
+    openstack_proxy_node01_public_address: 172.17.33.81
+    openstack_proxy_node02_public_address: 172.17.33.82
+    openstack_control_address: 172.17.36.10
+    openstack_control_node01_address: 172.17.36.11
+    openstack_control_node02_address: 172.17.36.12
+    openstack_control_node03_address: 172.17.36.13
+    openstack_database_address: 172.17.36.50
+    openstack_database_node01_address: 172.17.36.51
+    openstack_database_node02_address: 172.17.36.52
+    openstack_database_node03_address: 172.17.36.53
+    openstack_message_queue_address: 172.17.36.40
+    openstack_message_queue_node01_address: 172.17.36.41
+    openstack_message_queue_node02_address: 172.17.36.42
+    openstack_message_queue_node03_address: 172.17.36.43
+
+    # OpenStack Compute
+    openstack_compute_rack01_single_subnet: 172.17.36
+    openstack_compute_rack01_tenant_subnet: 172.17.37
+    openstack_compute_rack01_hostname: cmp
+
+    # openstack service hostnames
+    openstack_proxy_hostname: prx
+    openstack_proxy_node01_hostname: prx01
+    openstack_proxy_node02_hostname: prx02
+    openstack_control_hostname: ctl
+    openstack_control_node01_hostname: ctl01
+    openstack_control_node02_hostname: ctl02
+    openstack_control_node03_hostname: ctl03
+    openstack_database_hostname: dbs
+    openstack_database_node01_hostname: dbs01
+    openstack_database_node02_hostname: dbs02
+    openstack_database_node03_hostname: dbs03
+    openstack_message_queue_hostname: msg
+    openstack_message_queue_node01_hostname: msg01
+    openstack_message_queue_node02_hostname: msg02
+    openstack_message_queue_node03_hostname: msg03
+
+    openstack_benchmark_node01_hostname: bmk01
+    openstack_benchmark_node01_address: 172.17.36.95
+    nginx_proxy_gerrit_server_site_port: 8070
+    # Billing
+    #keystone_billometer_password: F3rX9Y2XwL4Mzh3T
+    #keystone_billometer_address: ${_param:billometer_service_host}
+    #billometer_service_host: ${_param:openstack_billing_address}
+    #billometer_version: ${_param:openstack_version}
+    #billometer_secret_key: tYQIn1Ggdxjw0iGYCuGgscGIOnhWT6rbjVjK2LLOmSEh0curr1dBHX1oGIUluoK0
+    #billometer_identity_password: ${_param:keystone_billometer_password}
+    #billometer_identity_host: ${_param:openstack_control_address}
+    #billometer_identity_token: ${_param:keystone_service_token}
+  linux:
+    network:
+      host:
+        prx:
+          address: ${_param:openstack_proxy_address}
+          names:
+          - ${_param:openstack_proxy_hostname}
+          - ${_param:openstack_proxy_hostname}.${_param:cluster_domain}
+        prx01:
+          address: ${_param:openstack_proxy_node01_address}
+          names:
+          - ${_param:openstack_proxy_node01_hostname}
+          - ${_param:openstack_proxy_node01_hostname}.${_param:cluster_domain}
+        prx02:
+          address: ${_param:openstack_proxy_node02_address}
+          names:
+          - ${_param:openstack_proxy_node02_hostname}
+          - ${_param:openstack_proxy_node02_hostname}.${_param:cluster_domain}
+        ctl:
+          address: ${_param:openstack_control_address}
+          names:
+          - ${_param:openstack_control_hostname}
+          - ${_param:openstack_control_hostname}.${_param:cluster_domain}
+        ctl01:
+          address: ${_param:openstack_control_node01_address}
+          names:
+          - ${_param:openstack_control_node01_hostname}
+          - ${_param:openstack_control_node01_hostname}.${_param:cluster_domain}
+        ctl02:
+          address: ${_param:openstack_control_node02_address}
+          names:
+          - ${_param:openstack_control_node02_hostname}
+          - ${_param:openstack_control_node02_hostname}.${_param:cluster_domain}
+        ctl03:
+          address: ${_param:openstack_control_node03_address}
+          names:
+          - ${_param:openstack_control_node03_hostname}
+          - ${_param:openstack_control_node03_hostname}.${_param:cluster_domain}
+        msg:
+          address: ${_param:openstack_message_queue_address}
+          names:
+          - ${_param:openstack_message_queue_hostname}
+          - ${_param:openstack_message_queue_hostname}.${_param:cluster_domain}
+        msg01:
+          address: ${_param:openstack_message_queue_node01_address}
+          names:
+          - ${_param:openstack_message_queue_node01_hostname}
+          - ${_param:openstack_message_queue_node01_hostname}.${_param:cluster_domain}
+        msg02:
+          address: ${_param:openstack_message_queue_node02_address}
+          names:
+          - ${_param:openstack_message_queue_node02_hostname}
+          - ${_param:openstack_message_queue_node02_hostname}.${_param:cluster_domain}
+        msg03:
+          address: ${_param:openstack_message_queue_node03_address}
+          names:
+          - ${_param:openstack_message_queue_node03_hostname}
+          - ${_param:openstack_message_queue_node03_hostname}.${_param:cluster_domain}
+        dbs:
+          address: ${_param:openstack_database_address}
+          names:
+          - ${_param:openstack_database_hostname}
+          - ${_param:openstack_database_hostname}.${_param:cluster_domain}
+        dbs01:
+          address: ${_param:openstack_database_node01_address}
+          names:
+          - ${_param:openstack_database_node01_hostname}
+          - ${_param:openstack_database_node01_hostname}.${_param:cluster_domain}
+        dbs02:
+          address: ${_param:openstack_database_node02_address}
+          names:
+          - ${_param:openstack_database_node02_hostname}
+          - ${_param:openstack_database_node02_hostname}.${_param:cluster_domain}
+        dbs03:
+          address: ${_param:openstack_database_node03_address}
+          names:
+          - ${_param:openstack_database_node03_hostname}
+          - ${_param:openstack_database_node03_hostname}.${_param:cluster_domain}
+

@@ -1,0 +1,80 @@
+applications:
+- horizon
+classes:
+- cluster.bm-mcp-contrail.infra
+- system.horizon.server.single
+#- system.horizon.server.plugin.theme
+- system.horizon.server.plugin.contrail
+- system.horizon.server.plugin.overrides
+
+parameters:
+  _param:
+    horizon_site_branding: 'BM-MCP-Contrail | Test clooud'
+    # horizon_dashboard_theme: mirantis
+    cluster_node01_address: ${_param:openstack_proxy_node01_address}
+    cluster_node02_address: ${_param:openstack_proxy_node02_address}
+  horizon:
+    server:
+      openstack_heat_stack:
+        enable_user_pass: false
+#      websso:
+#        logout_url: "'https://sitohs.jio.com:4443/oam/server/logout?end_url=\"https://jse3.jaws.jio.com/auth/logout/\"'"
+#        websso_initial_choice: saml2
+#        websso_choices:
+#          - saml2
+      openstack_neutron_network:
+        enable_fip_topology_check: false
+      api_versions:
+        identity: ${_param:horizon_identity_version}
+      bind:
+        address: ${_param:public_address}
+        port: 8078
+      branding: ${_param:horizon_site_branding}
+      cache:
+        engine: memcached
+        members:
+        - host: ${_param:cluster_node01_address}
+          port: 11211
+        - host: ${_param:cluster_node02_address}
+          port: 11211
+        prefix: CACHE_HORIZON
+      enabled: true
+      mail:
+        engine: dummy
+      policy:
+        compute:
+          enabled: true
+          name: nova_policy.json
+          source: file
+        identity:
+          enabled: true
+          name: keystone_policy.json
+          source: file
+        image:
+          enabled: true
+          name: glance_policy.json
+          source: file
+        network:
+          enabled: true
+          name: neutron_policy.json
+          source: file
+        orchestration:
+          enabled: true
+          name: heat_policy.json
+          source: file
+        telemetry:
+          enabled: true
+          name: ceilometer_policy.json
+          source: file
+        volume:
+          enabled: true
+          name: cinder_policy.json
+          source: file
+      secret_key: ${_param:horizon_secret_key}
+      session:
+        engine: cache
+        timeout: 43200
+      version: ${_param:horizon_version}
+      wsgi:
+        processes: 3
+        threads: 10 

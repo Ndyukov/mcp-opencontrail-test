@@ -1,0 +1,81 @@
+
+classes:
+  - system.linux.system.haveged
+  - system.linux.system.repo.ubuntu
+  - system.linux.system.repo.glusterfs
+  - system.linux.system.repo.docker
+  - system.linux.system.repo.mcp.salt
+  - system.linux.system.repo.mcp.extra
+  - system.glusterfs.client.cluster
+  - system.glusterfs.client.volume.aptly
+  - system.glusterfs.client.volume.gerrit
+  - system.glusterfs.client.volume.jenkins
+  - system.glusterfs.client.volume.registry
+  - system.glusterfs.client.volume.salt_pki
+  - system.glusterfs.client.volume.mysql
+  - system.glusterfs.client.volume.openldap
+ #- system.glusterfs.client.volume.salt
+  # Docker
+  - system.docker.host
+
+  # Generate aptly-publisher config to use for jenkins slaves
+  - system.aptly.client.publisher
+
+  # Keepalived
+  - system.keepalived.cluster.instance.cicd_control_vip
+
+  # HAProxy
+  - system.salt.minion.cert.proxy.cicd
+  - system.haproxy.proxy.single
+  - system.haproxy.proxy.listen.cicd.aptly
+  - system.haproxy.proxy.listen.cicd.gerrit
+  - system.haproxy.proxy.listen.cicd.jenkins
+  - system.haproxy.proxy.listen.docker.registry
+  - system.haproxy.proxy.listen.docker.visualizer
+  - system.haproxy.proxy.listen.openldap
+  - system.haproxy.proxy.listen.phpldapadmin
+  - system.haproxy.proxy.listen.mysql
+  - system.haproxy.proxy.listen.stats
+parameters:
+  _param:
+    admin_email: root@localhost
+    cluster_node01_name: ${_param:cicd_control_node01_hostname}
+    cluster_node01_address: ${_param:cicd_control_node01_address}
+    cluster_node02_name: ${_param:cicd_control_node02_hostname}
+    cluster_node02_address: ${_param:cicd_control_node02_address}
+    cluster_node03_name: ${_param:cicd_control_node03_hostname}
+    cluster_node03_address: ${_param:cicd_control_node03_address}
+    glusterfs_node01_address: ${_param:infra_kvm_node01_address}
+    glusterfs_node02_address: ${_param:infra_kvm_node02_address}
+    glusterfs_node03_address: ${_param:infra_kvm_node03_address}
+    keepalived_vip_virtual_router_id: 180
+    keepalived_vip_password: 5Rbxk2ecyJX0yMzC
+    keepalived_vip_interface: ens3
+    cluster_vip_address: ${_param:control_vip_address}
+    control_vip_address: ${_param:cicd_control_address}
+    cluster_public_host: ${_param:control_vip_address}
+    salt_api_password: 032dFxyxHW6YbUlEBCWtrYswPtccsFXd
+    # Docker images and versions
+    docker_registry_http_secret: u1Zkn4i0feIciGtL
+    # CI/CD service databases
+    mysql_admin_password: QERR1FFBJNpZpkuq
+    mysql_gerrit_password: gTO6LDTqxmyx2UJ5
+    nginx_proxy_gerrit_server_site_host: ${_param:openstack_proxy_address}
+    nginx_proxy_gerrit_server_site_port: 8080
+    gerrit_http_listen_url: proxy-https://*:8080/
+
+    # Proxy
+    cluster_ssl_certificate:
+      enabled: true
+      pem_file: /etc/haproxy/ssl/${_param:cluster_public_host}-all.pem
+    haproxy_bind_address: ${_param:cluster_vip_address}
+    haproxy_mysql_source_port: 13306
+  linux:
+    system:
+      package:
+        ca-certificates-java:
+          version: latest
+    network:
+      interface:
+        ens3: ${_param:linux_single_interface}
+

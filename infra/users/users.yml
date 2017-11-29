@@ -1,0 +1,25 @@
+parameters:
+  _param:
+    linux_system_user_sudo: true
+  linux:
+    system:
+      user:
+        ndyukov:
+          enabled: true
+          name: ndyukov
+          sudo: true
+          full_name: Some Body
+          home: /home/ndyukov
+          email: ndyukov@mirantis.com
+  openssh:
+    server:
+      enabled: true
+      user:
+        ndyukov:
+          enabled: true
+          public_keys:
+          - ${public_keys:ndyukov}
+          user: ${linux:system:user:ndyukov}
+  public_keys:
+    ndyukov:
+      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwubAGGvX8srVQOa7PvZiy8Wn8IJkg+MOdbz+efbBtEKAL4qm2IdaLwpr319rFTbqEeuD+7IYNYIcpa/4YYUGY88xUEOPOcat9q7fZcIGsN78xRIhQdmf0e5zNKBaap9YmngEyW+cvRgzLD/ItbIEnFKTLjY+g1YlbaPXZuBxoC8fNLbJXAdJIYD4M+1JbqzyytN1U0shreWoiyFOSpmTi5Y4nASiMhF4z//cbUON+CJNfM4oEPU+KqvUE7povP7QLxiRZhA5HL/a5LPardTQz0SfIiXwPCngKjhf8HCtC8o59Und/MBykVAOfE5Q96cL6UGAIVci275H9/tnTh87f ndyukov@mirantis.com

@@ -1,0 +1,5 @@
+classes:
+  - system.docker.swarm.manager
+  - cluster.bm-mcp-contrail.infra
+  - cluster.bm-mcp-contrail.cicd.control
+

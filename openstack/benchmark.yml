@@ -1,0 +1,10 @@
+classes:
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.ubuntu
+- cluster.bm-mcp-contrail.infra
+parameters:
+  linux:
+    network:
+      interface:
+        eth0: ${_param:linux_dhcp_interface}
+        eth1: ${_param:linux_single_interface}
